@@ -9,9 +9,9 @@ jobs:
 
     steps:
       - name: Code checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.5.0
         with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.WORKLOW_TOKEN }}
 
       - name: Setup NodeJS
         uses: actions/setup-node@v3.5.1
@@ -36,7 +36,7 @@ jobs:
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.WORKLOW_TOKEN }}
 
       - name: Setup NodeJS
         uses: actions/setup-node@v3.5.1
