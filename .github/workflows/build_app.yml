@@ -92,7 +92,7 @@ jobs:
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node_modules-
 
-      - name: Install packages with NPM
+      - name: Install packages with NPM ha
         run: |
           npm ci
 
