@@ -107,8 +107,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Launch EC2 Instance
+      - name: Run ansible and get files from git
         run: |
+          git clone 'https://github.com/sam96x/4it572-devops'
           cd ansible
           ansible-playbook ec2_deploy.yml
 
