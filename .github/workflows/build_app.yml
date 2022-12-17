@@ -107,7 +107,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Launch EC2 Instance
+      - name: SSH connect
+        run: |
+          echo ${{secrets.PEM_TOKEN}} > devops.pem
+          chmod 400 devops.pem
+          ssh -i devops.pem ec2-user@ec2-18-233-6-76.compute-1.amazonaws.com
+      - name: Download git repository
+        run: |
+          mkdir app
+          git clone 'https://github.com/sam96x/4it572-devops'
+      - name: Run Ansible playbook
         run: |
           cd ansible
           ansible-playbook ec2_deploy.yml
