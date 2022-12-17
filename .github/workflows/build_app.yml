@@ -112,7 +112,7 @@ jobs:
       - name: SSH connect
         run: |
           touch devops.pem
-          echo "${{secrets.PEM_TOKEN}}"" >> devops.pem
+          echo "${{secrets.PEM_TOKEN}}S" >> devops.pem
           cat devops.pem
           chmod 400 devops.pem
           ssh -T -i devops.pem ec2-user@ec2-18-233-6-76.compute-1.amazonaws.com
