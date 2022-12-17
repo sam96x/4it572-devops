@@ -107,6 +107,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2.5.0
+      
       - name: SSH connect
         run: |
           touch devops.pem
