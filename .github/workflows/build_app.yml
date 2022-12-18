@@ -108,12 +108,10 @@ jobs:
     steps:
       - name: Create a pem file and SSH connection
         run: |
-          cd ~
-          mkdir .ssh && chmod 700 .ssh && cd .ssh
-          touch devops.pem && chmod 600 devops.pem
-          touch known_hosts && chmod 644 known_hosts
-          echo "${{ secrets.PEM_KEY }}" /p=1 >> devops.pem
-          ssh -T -o StrictHostKeyChecking=no -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
+          which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+          eval $(ssh-agent -s)
+          ssh-add < (echo -e "${{ secrets.PEM_KEY }}")
+          ssh -t -t -o StrictHostKeyChecking=no -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
       # - name: Code checkout
       #   uses: actions/checkout@v2.5.0
       #   with:
