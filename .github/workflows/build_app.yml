@@ -107,23 +107,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2.5.0
-
-      - name: SSH connect
-        run: |
-          cd ~
-          mkdir .ssh && chmod 700 .ssh && cd .ssh/
-          touch known_hosts
-          echo "${{secrets.PEM_TOKEN}}S" >> ./known_hosts
-          chmod 600 known_hosts
-          ssh -T -o StrictHostKeyChecking=no -i ./known_hosts ec2-user@ec2-52-91-85-133.compute-1.amazonaws.com
-      - name: Set up vault
-        run: |
-          mkdir app
-          git clone 'https://github.com/sam96x/4it572-devops'
-      - name: Run Ansible playbook
-        run: |
-          cd ansible
-          ansible-playbook ec2_deploy.yml
+      - name: Run ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: ec2_deploy.yml
+          # Optional, directory where playbooks live
+          directory: ../ansible
+          key: ${{secrets.PEM_KEY}}
 
          
