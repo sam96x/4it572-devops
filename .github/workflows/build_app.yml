@@ -107,6 +107,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Code checkout
+        uses: actions/checkout@v2.5.0 
       - name: Run ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
