@@ -107,16 +107,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Create a pem file
+      - name: Create a pem file and SSH connection
         run: |
           cd ~
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch devops.pem && chmod 600 devops.pem
-          echo "${{ secrets.PEM_KEY }}" >> devops.pem 
-      - name: Connect to EC2 through SSH
-        run: |
-          ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com
-      
+          echo "${{ secrets.PEM_KEY }}" >> devops.pem
+          ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
       - name: Run ansible playbook
