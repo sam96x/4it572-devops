@@ -112,9 +112,7 @@ jobs:
       - name: Run ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          # Required, playbook filepath
           playbook: ec2_deploy.yml
-          # Optional, directory where playbooks live
           directory: ./ansible
           key: ${{secrets.PEM_KEY}}
 
