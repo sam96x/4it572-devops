@@ -107,12 +107,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Create a pem file
+        run: |
+          cd ~
+          mkdir .ssh && chmod 700 .ssh && cd .ssh
+          touch devops.pem && chmod 600 devops.pem
+          echo "${secrets.PEM_KEY}" >> devops.pem 
       - name: Code checkout
-        uses: actions/checkout@v2.5.0 
+        uses: actions/checkout@v2.5.0
       - name: Run ansible playbook
         run: |
           cd ansible
-          ansible-playbook ec2_deploy.yml
+          cp ~/.ssh/devops.pem ./
+          ansible-playbook -i devops.pem ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
