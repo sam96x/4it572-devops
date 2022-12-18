@@ -110,10 +110,13 @@ jobs:
       - name: Code checkout
         uses: actions/checkout@v2.5.0 
       - name: Run ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          playbook: ec2_deploy.yml
-          directory: ./ansible
-          key: ${{secrets.PEM_KEY}}
+        run: |
+          cd ansible
+          ansible-playbook ec2_deploy.yml
+        # uses: dawidd6/action-ansible-playbook@v2
+        # with:
+        #   playbook: ec2_deploy.yml
+        #   directory: ./ansible
+        #   key: ${{secrets.PEM_KEY}}
 
          
