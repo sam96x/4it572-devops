@@ -113,6 +113,7 @@ jobs:
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch devops.pem && chmod 600 devops.pem
           echo "${{ secrets.PEM_KEY }}" /p=1 >> devops.pem
+          apt-get install openssh-client
           ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
