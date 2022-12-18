@@ -112,16 +112,19 @@ jobs:
           cd ~
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch devops.pem && chmod 600 devops.pem
+          touch known_hosts && chmod 644 known_hosts
           echo "${{ secrets.PEM_KEY }}" /p=1 >> devops.pem
-          apt-get install openssh-client
+          echo "{{ secrets.SSH_KNOWN_HOSTS}}" /p=1 >> known_hosts
           ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
+        with:
+          token: ${{ secrets.WORKLOW_TOKEN }}
       - name: Run ansible playbook
         run: |
           cd ansible
           cp ~/.ssh/devops.pem ./
-          ansible-playbook -i devops.pem ec2_deploy.yml
+          ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
