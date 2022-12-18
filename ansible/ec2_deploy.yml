@@ -3,8 +3,11 @@
   connection: local
 
   tasks:
+    - name: Install galaxy modules
+      run: ansible-galaxy collection install amazon.aws
+    
     - name: Launch EC2 Instance
-      community.aws.ec2:
+      community.aws.ec2_instance:
         instance_type: t2.micro
         image: ami-0b0dcb5067f052a63
         region: us-east-1
