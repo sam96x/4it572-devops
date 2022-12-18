@@ -113,6 +113,10 @@ jobs:
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch devops.pem && chmod 600 devops.pem
           echo "${{ secrets.PEM_KEY }}" >> devops.pem 
+      - name: Connect to EC2 through SSH
+        run: |
+          ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com
+      
       - name: Code checkout
         uses: actions/checkout@v2.5.0
       - name: Run ansible playbook
