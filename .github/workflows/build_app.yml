@@ -113,7 +113,7 @@ jobs:
           # Required, playbook filepath
           playbook: ec2_deploy.yml
           # Optional, directory where playbooks live
-          directory: ../ansible
+          directory: ./ansible
           key: ${{secrets.PEM_KEY}}
 
          
