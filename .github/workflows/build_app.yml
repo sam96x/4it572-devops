@@ -5,100 +5,100 @@ on:
   push:
 
 jobs:
-  Install:
-    runs-on: ubuntu-latest
+  # Install:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKLOW_TOKEN }}
+  #   steps:
+  #     - name: Code checkout
+  #       uses: actions/checkout@v2.5.0
+  #       with:
+  #         token: ${{ secrets.WORKLOW_TOKEN }}
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3.5.1
-        with:
-          node-version: 10
+  #     - name: Setup NodeJS
+  #       uses: actions/setup-node@v3.5.1
+  #       with:
+  #         node-version: 10
 
-      - name: Cache
-        uses: actions/cache@v3.0.11
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules-
+  #     - name: Cache
+  #       uses: actions/cache@v3.0.11
+  #       with:
+  #         path: node_modules
+  #         key: node_modules-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: node_modules-
 
-      - name: Install packages with NPM
-        run: |
-          npm ci
-  Build:
-    needs: Install
-    runs-on: ubuntu-latest
+  #     - name: Install packages with NPM
+  #       run: |
+  #         npm ci
+  # Build:
+  #   needs: Install
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKLOW_TOKEN }}
+  #   steps:
+  #     - name: Code checkout
+  #       uses: actions/checkout@v2.5.0
+  #       with:
+  #         token: ${{ secrets.WORKLOW_TOKEN }}
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3.5.1
-        with:
-          node-version: 10
+  #     - name: Setup NodeJS
+  #       uses: actions/setup-node@v3.5.1
+  #       with:
+  #         node-version: 10
 
-      - name: Cache
-        uses: actions/cache@v3.0.11
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules-
+  #     - name: Cache
+  #       uses: actions/cache@v3.0.11
+  #       with:
+  #         path: node_modules
+  #         key: node_modules-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: node_modules-
 
-      - name: Install packages (with NPM)
-        run: |
-          npm ci
+  #     - name: Install packages (with NPM)
+  #       run: |
+  #         npm ci
 
-      - name: Build
-        run: |
-          npm rebuild node-sass --force
-          npm run build -- --colors
+  #     - name: Build
+  #       run: |
+  #         npm rebuild node-sass --force
+  #         npm run build -- --colors
 
-      - name: Cache node modules and build folder
-        if: ${{ github.ref == 'refs/heads/master' }}
-        uses: actions/cache@v3.0.11
-        with:
-          path: |
-            ~/.npm
-            ./node_modules
-            ./build
-          key: ${{ runner.os }}-build-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-build-${{ github.run_id }}
-  Test:
-    needs: Install
-    runs-on: ubuntu-latest
+  #     - name: Cache node modules and build folder
+  #       if: ${{ github.ref == 'refs/heads/master' }}
+  #       uses: actions/cache@v3.0.11
+  #       with:
+  #         path: |
+  #           ~/.npm
+  #           ./node_modules
+  #           ./build
+  #         key: ${{ runner.os }}-build-${{ github.run_id }}
+  #         restore-keys: ${{ runner.os }}-build-${{ github.run_id }}
+  # Test:
+  #   needs: Install
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKLOW_TOKEN }}
+  #   steps:
+  #     - name: Code checkout
+  #       uses: actions/checkout@v2.5.0
+  #       with:
+  #         token: ${{ secrets.WORKLOW_TOKEN }}
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3.5.1
-        with:
-          node-version: 10
+  #     - name: Setup NodeJS
+  #       uses: actions/setup-node@v3.5.1
+  #       with:
+  #         node-version: 10
 
-      - name: Cache
-        uses: actions/cache@v3.0.11
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules-
+  #     - name: Cache
+  #       uses: actions/cache@v3.0.11
+  #       with:
+  #         path: node_modules
+  #         key: node_modules-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: node_modules-
 
-      - name: Install packages with NPM
-        run: |
-          npm ci
+  #     - name: Install packages with NPM
+  #       run: |
+  #         npm ci
 
-      - name: Run tests
-        run: |
-          npm run test -- --colors
+  #     - name: Run tests
+  #       run: |
+  #         npm run test -- --colors
 
   Deploy:
     name: Deploy app to EC2 with Ansible playbook
@@ -116,15 +116,14 @@ jobs:
           echo "${{ secrets.PEM_KEY }}" /p=1 >> devops.pem
           echo "{{ secrets.SSH_KNOWN_HOSTS}}" /p=1 >> known_hosts
           ssh -T -i devops.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
-      - name: Code checkout
-        uses: actions/checkout@v2.5.0
-        with:
-          token: ${{ secrets.WORKLOW_TOKEN }}
-      - name: Run ansible playbook
-        run: |
-          cd ansible
-          cp ~/.ssh/devops.pem ./
-          ansible-playbook ec2_deploy.yml
+      # - name: Code checkout
+      #   uses: actions/checkout@v2.5.0
+      #   with:
+      #     token: ${{ secrets.WORKLOW_TOKEN }}
+      # - name: Run ansible playbook
+      #   run: |
+      #     cd ansible
+      #     ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
