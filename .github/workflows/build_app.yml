@@ -107,7 +107,7 @@ jobs:
     
     steps:
       - name: Create a pem file and SSH connection
-        uses: D3rHase/ssh-command-action@latest
+        uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ec2-44-201-115-224.compute-1.amazonaws.com # Remote server address / ip - required
           port: 22 # Remote server port -  Default: 22 - optional
