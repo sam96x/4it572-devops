@@ -116,7 +116,7 @@ jobs:
           touch known_hosts
           echo "${{secrets.PEM_TOKEN}}S" >> ./known_hosts
           chmod 600 known_hosts
-          ssh -T -o StrictHostKeyChecking=no -i devops.pem ec2-user@ec2-52-91-85-133.compute-1.amazonaws.com
+          ssh -T -o StrictHostKeyChecking=no -i ./known_hosts ec2-user@ec2-52-91-85-133.compute-1.amazonaws.com
       - name: Set up vault
         run: |
           mkdir app
