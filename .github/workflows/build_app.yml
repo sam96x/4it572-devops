@@ -110,8 +110,8 @@ jobs:
         run: |
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch secret.pem && chmod 600 secret.pem
-          echo "${{ secrets.PEM_KEY }}" /p=1 >> secret.pem
-          ssh -T -o StrictHostKeyChecking=no -i secret.pem ec2-user@ec2-44-212-63-173.compute-1.amazonaws.com 
+          echo "${{ secrets.PEM_KEY }}" >> secret.pem
+          ssh -T -o StrictHostKeyChecking=no -i secret.pem ec2-user@ec2-44-201-115-224.compute-1.amazonaws.com 
       # - name: Code checkout
       #   uses: actions/checkout@v2.5.0
       #   with:
