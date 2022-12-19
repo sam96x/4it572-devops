@@ -109,10 +109,10 @@ jobs:
       - name: Create a pem file and SSH connection
         run: |
           mkdir .ssh && chmod 700 .ssh && cd .ssh
-          touch secret
+          touch secret.pem
           echo "${{ secrets.PEM_KEY }}" >> secret.pem
-          chmod 400 secret
-          ssh -T -o StrictHostKeyChecking=no -i "secret" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
+          chmod 400 secret.pem
+          ssh -T -o StrictHostKeyChecking=no -i "secret.pem" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
