@@ -107,21 +107,30 @@ jobs:
     
     steps:
       - name: Create a pem file and SSH connection
-        run: |
-          mkdir .ssh && chmod 700 .ssh && cd .ssh
-          ssh-keygen -m PEM
-          touch secret.pem
-          echo "${{ secrets.PEM_KEY }}" >> secret.pem
-          chmod 400 secret.pem
-          ssh -t -t -i "secret.pem" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
+        uses: D3rHase/ssh-command-action@{version}
+        with:
+          host: ec2-3-84-57-167.compute-1.amazonaws.com # Remote server address / ip - required
+          port: 22 # Remote server port -  Default: 22 - optional
+          user: ec2-user # Remote server user - required
+        # run: |
+        #   mkdir .ssh && chmod 700 .ssh && cd .ssh
+        #   touch secret.pem
+        #   echo "${{ secrets.PEM_KEY }}" >> secret.pem
+        #   chmod 400 secret.pem
+        #   ssh -T -i "secret.pem" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
           token: ${{ secrets.WORKLOW_TOKEN }}
+      - name: Encrypt vars file
+        run: |
+          cd 4IT572_DEVOPS/ && cd ansible/ && cd group_vars/
+          echo "${{ secrets.PASSWORD }}" >> vault.yml
+          ansible-vault encrypt vars.yml --vault-password-file vault.yml
+          cd ../
       - name: Run ansible playbook
         run: |
-          cd ansible
-          ansible-playbook ec2_deploy.yml
+          ansible-playbook ec2_deploy.yml --ask-vault-pass
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
