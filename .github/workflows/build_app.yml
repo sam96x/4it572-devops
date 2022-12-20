@@ -115,7 +115,5 @@ jobs:
           cd ansible
           pip3 install ansible boto boto3 botocore
           ansible-galaxy collection install amazon.aws
-          echo "${{ secrets.PEM_KEY }}" > devops.pem
-          chmod 400 devops.pem
           echo "${{ secrets.SECRET_PASSWORD}}" > password.txt
           ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file devops.pem -u ec2-user   
