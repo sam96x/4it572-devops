@@ -119,7 +119,7 @@ jobs:
       - name: Run ansible playbook
         run: |
           cd ansible
-          ansible-galaxy collection install community.aws
+          ansible-galaxy collection install amazon.aws
           ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
