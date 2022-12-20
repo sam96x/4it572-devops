@@ -124,7 +124,7 @@ jobs:
           touch devops.pem
           echo "${{ secrets.PEM_KEY }}" > devops.pem
           chmod 400 devops.pem
-          ansible-playbook -i devops.pem ec2_deploy.yml
+          ansible-playbook ec2_deploy.yml --key-file devops.pem
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
