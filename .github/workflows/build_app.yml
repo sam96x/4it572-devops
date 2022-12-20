@@ -105,12 +105,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Cache
-        uses: actions/cache@v3.0.11
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
-           token: ${{ secrets.WORKLOW_TOKEN }}
+          token: ${{ secrets.WORKLOW_TOKEN }}
       - name: Install dependencies and run playbook
         run: |
           cd ansible
