@@ -118,6 +118,5 @@ jobs:
           echo "${{ secrets.PEM_KEY }}" > devops.pem
           chmod 400 devops.pem
           echo "${{ secrets.SECRET_PASSWORD}}" > password.txt
-          ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file devops.pem -u ec2-user  
-
-         
+          ansible-vault decrypt devops.pem --vault-password-file password.txt
+          ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file devops.pem -u ec2-user   
