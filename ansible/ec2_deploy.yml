@@ -3,6 +3,19 @@
   connection: local
 
   tasks:
+    - name: Terminate EC2 instances
+      ec2_instance:
+        region: us-east-1
+        key_name: devops
+        vpc_subnet_id: subnet-0e884a8314085283b
+        security_group: sg-0ee892b45618c8fa6
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
+        session_token: "{{ session_token }}"
+        state: absent
+        filters:
+          instance-state-name: running
+
     - name: Launch EC2 Instance
       ec2_instance:
         instance_type: t2.micro
@@ -10,17 +23,21 @@
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0e884a8314085283b
+        security_group: sg-0ee892b45618c8fa6
         count: 1
         wait: yes
         access_key: "{{ access_key }}"
         secret_key: "{{ secret_key }}"
         session_token: "{{ session_token }}"
+        state: running
       register: ec2
+
     - name: Add instance host to group
       add_host:
-        hostname: "{{ item.public_ip }}"
+        hostname: "{{ item.public_ip_address }}"
         groupname: launched
       loop: "{{ ec2.instances }}"
+
     - name: Wait for SSH connection
       delegate_to: "{{ item.public_dns_name }}"
       wait_for_connection:
