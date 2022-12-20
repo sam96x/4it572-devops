@@ -12,9 +12,9 @@
         vpc_subnet_id: subnet-0e884a8314085283b
         count: 1
         wait: yes
-        access_key: {{ access_key }}
-        secret_key: {{ secret_key }}
-        session_token: {{ session_token }}
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
+        session_token: "{{ session_token }}"
       register: ec2
     - name: Add instance host to group
       add_host:
