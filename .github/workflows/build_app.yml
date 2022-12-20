@@ -112,11 +112,10 @@ jobs:
           ls
           touch id_rsa
           ls
-          echo "${{ secrets.SSH_KEY }}" > secret.pem
+          echo "${{ secrets.SSH_KEY }}" > id_rsa
           chmod 400 secret.pem
           ls
-          ssh-add id_rsa
-          ssh ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
+          ssh -i id_rsa ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
         shell: bash
       - name: Code checkout
         uses: actions/checkout@v2.5.0
