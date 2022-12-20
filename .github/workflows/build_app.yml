@@ -109,15 +109,15 @@ jobs:
       - name: Create a pem file and SSH connection
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
-          host: ec2-3-84-57-167.compute-1.amazonaws.com # Remote server address / ip - required
-          port: 22 # Remote server port -  Default: 22 - optional
-          user: ec2-user # Remote server user - required
-          private_key: ${{ secrets.PEM_KEY }}
-        #   mkdir .ssh && chmod 700 .ssh && cd .ssh
-        #   touch secret.pem
-        #   echo "${{ secrets.PEM_KEY }}" >> secret.pem
-        #   chmod 400 secret.pem
-        #   ssh -T -i "secret.pem" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
+          # host: ec2-3-84-57-167.compute-1.amazonaws.com # Remote server address / ip - required
+          # port: 22 # Remote server port -  Default: 22 - optional
+          # user: ec2-user # Remote server user - required
+          # private_key: ${{ secrets.PEM_KEY }}
+          mkdir .ssh && chmod 700 .ssh && cd .ssh
+          touch secret.pem
+          echo "${{ secrets.SSH_KEY }}" | tr -d '\r' > secret.pem
+          chmod 400 secret.pem
+          ssh -T -i "secret.pem" -o "StrictHostKeyChecking no" ec2-user@ec2-3-84-57-167.compute-1.amazonaws.com 
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
