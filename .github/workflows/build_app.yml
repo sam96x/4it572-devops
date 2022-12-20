@@ -120,7 +120,7 @@ jobs:
         run: |
           cd ansible
           ansible-galaxy collection install amazon.aws
-          yum install ansible
+          pip3 install ansible boto boto3 botocore
           touch devops.pem
           chmod 400 devops.pem
           echo "${{ secrets.PEM_KEY }}" > devops.pem
