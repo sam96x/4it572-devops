@@ -108,10 +108,6 @@ jobs:
     steps:
       - name: Create a pem file and SSH connection
         run:
-          # host: ec2-3-84-57-167.compute-1.amazonaws.com # Remote server address / ip - required
-          # port: 22 # Remote server port -  Default: 22 - optional
-          # user: ec2-user # Remote server user - required
-          # private_key: ${{ secrets.PEM_KEY }}
           mkdir .ssh && chmod 700 .ssh && cd .ssh
           touch secret.pem
           echo "${{ secrets.SSH_KEY }}" > secret.pem
