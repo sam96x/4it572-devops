@@ -12,9 +12,9 @@
         vpc_subnet_id: subnet-0e884a8314085283b
         count: 1
         wait: yes
-        access_key: ASIA3GUNLHCDDCVALDBG
-        secret_key: IGPSPswPSuL8g9vFPjQf4iM0zmxfU2F2O3HO8pTW
-        session_token: FwoGZXIvYXdzEEkaDLe5rCgQBsoeKyDHPSK+ASqgELikBAuxnPXQgkJZU0i9Fvkl01A+sviImPEE5Ep+LeTy65cR5ODFn5ktqenrOq4UoUh7IY4GbluIIGPuuDh5GKsH1JcuEHxhyxB1erCID6GXH1iyZRP+qlFWCayg996ZEW1ZoojrGz39M6B7knV6aZbjC+eJccrSb4VDCzQAEcjtg4UEdGS7SGY37v5A6XiCDLa11e8mK1RNMIdsJwtytk7JsBtaPH3sKrRSycFEFtBNerXbq0f7Thp3g3UoiNKFnQYyLV0U2OWuwlCcMEDhgrFaAv2Ry2CDLMoRHb/wTGWYOdizsfQrSQJcIoMUktSDWA==
+        access_key: {{ access_key }}
+        secret_key: {{ secret_key }}
+        session_token: {{ session_token }}
       register: ec2
     - name: Add instance host to group
       add_host:
