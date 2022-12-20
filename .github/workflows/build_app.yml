@@ -102,6 +102,7 @@ jobs:
 
   Deploy:
     name: Deploy app to EC2 with Ansible playbook
+    needs: [Build, Test]
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     
@@ -112,7 +113,7 @@ jobs:
           token: ${{ secrets.WORKLOW_TOKEN }}
       - name: Install dependencies
         run: |
-          install ansible boto boto3 botocore
+          pip3 install ansible boto boto3 botocore
           ansible-galaxy collection install amazon.aws
       - name: Set up PEM file and password
         run: |
