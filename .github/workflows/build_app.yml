@@ -110,15 +110,16 @@ jobs:
         uses: actions/checkout@v2.5.0
         with:
           token: ${{ secrets.WORKLOW_TOKEN }}
-      - name: Encrypt vars file
-        run: |
-          cd 4IT572_DEVOPS/ && cd ansible/ && cd group_vars/
-          echo "${{ secrets.PASSWORD }}" >> vault.yml
-          ansible-vault encrypt vars.yml --vault-password-file vault.yml
-          cd ../
+      # - name: Encrypt vars file
+      #   run: |
+      #     cd 4IT572_DEVOPS/ && cd ansible/ && cd group_vars/
+      #     echo "${{ secrets.PASSWORD }}" >> vault.yml
+      #     ansible-vault encrypt vars.yml --vault-password-file vault.yml
+      #     cd ../
       - name: Run ansible playbook
         run: |
-          ansible-playbook ec2_deploy.yml --ask-vault-pass
+          cd ansible
+          ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
