@@ -23,7 +23,7 @@
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0e884a8314085283b
-        security_group: sg-0ee892b45618c8fa6
+        security_ group: sg-0ee892b45618c8fa6
         count: 1
         wait: yes
         access_key: "{{ access_key }}"
