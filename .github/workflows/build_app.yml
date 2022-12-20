@@ -120,9 +120,9 @@ jobs:
         run: |
           cd ansible
           ansible-galaxy collection install amazon.aws
-          pip install --upgrade pip
-          pip3 install ansible boto boto3 botocore
-          ansible-playbook ec2_deploy.yml
+          yum install ansible
+          echo "${{ secrets.PEM_KEY }}"
+          ansible-playbook -i devops.pem ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
         #   playbook: ec2_deploy.yml
