@@ -10,9 +10,7 @@
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-0e884a8314085283b
-        group: eshop
         count: 1
-        assign_public_ip: yes
         wait: yes
         access_key: ASIA3GUNLHCDDCVALDBG
         secret_key: IGPSPswPSuL8g9vFPjQf4iM0zmxfU2F2O3HO8pTW
