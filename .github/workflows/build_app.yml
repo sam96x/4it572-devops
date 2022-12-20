@@ -113,11 +113,11 @@ jobs:
           token: ${{ secrets.WORKLOW_TOKEN }}
       - name: Install dependencies
         run: |
+          cd ansible
           pip3 install ansible boto boto3 botocore
           ansible-galaxy collection install amazon.aws
       - name: Set up PEM file and password
         run: |
-          cd ansible
           echo "${{ secrets.PEM_KEY }}" > devops.pem
           chmod 400 devops.pem
           echo "${{ secrets.SECRET_PASSWORD}}" > password.txt
