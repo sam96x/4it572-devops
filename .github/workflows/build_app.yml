@@ -118,6 +118,7 @@ jobs:
       #     cd ../
       - name: Run ansible playbook
         run: |
+          cd ansible
           ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
