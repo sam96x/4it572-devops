@@ -120,7 +120,8 @@ jobs:
         run: |
           cd ansible
           ansible-galaxy collection install amazon.aws
-          pip3 install boto3 botocore
+          pip install --upgrade pip
+          pip install boto3 botocore
           ansible-playbook ec2_deploy.yml
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
