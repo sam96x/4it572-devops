@@ -85,8 +85,7 @@ jobs:
   #       with:
   #         node-version: 10
 
-  #     - name: Cache
-  #       uses: actions/cache@v3.0.11
+  
   #       with:
   #         path: node_modules
   #         key: node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -106,16 +105,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Cache
+        uses: actions/cache@v3.0.11
       - name: Code checkout
         uses: actions/checkout@v2.5.0
         with:
-          token: ${{ secrets.WORKLOW_TOKEN }}
+           token: ${{ secrets.WORKLOW_TOKEN }}
       - name: Install dependencies and run playbook
         run: |
           cd ansible
           pip3 install ansible boto boto3 botocore
           ansible-galaxy collection install amazon.aws
           touch password.txt
-          echo "${{ secrets.SECRET_PASSWORD}}" > password.txt
+          echo "${{ secrets.SECRET_PASSWORD }}" > password.txt
+          echo "${{ secrets.PEM_TOKEN }}" > ../devops.pem
           chmod 400 ../devops.pem
-          ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file ../devops.pem -u ec2-user   
+          ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file ../devops.pem -u ${{ secrets.USER }}   
