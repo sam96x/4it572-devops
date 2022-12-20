@@ -126,6 +126,7 @@ jobs:
           chmod 400 devops.pem
           touch password.txt
           echo "${{ secrets.SECRET_PASSWORD}}" > password.txt
+          ansible-vault decrypt group_vars/vars.yml --vault-password-file password.txt
           ansible-playbook ec2_deploy.yml --vault-password-file password.txt --key-file devops.pem
         # uses: dawidd6/action-ansible-playbook@v2
         # with:
